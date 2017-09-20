@@ -1,0 +1,14 @@
+  language: node_js
+  node_js:
+    - 'stable'
+  services:
+    - mongodb
+  env:
+    - MONGODB_URI=mongodb://localhost/test APP_SECRET=NotSoSecret
+  before_script: npm install
+  script:
+    - npm test
+    - npm run lint
+  branches:
+  only:
+  - master
