@@ -4,7 +4,10 @@
   "description": "CLI and Client to interact with backAttackerator",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env DEBUG=app:* mocha",
+    "test:watch": "cross-env DEBUG=app:* mocha -w",
+    "start": "cross-env DEBUG=app:* nodemon command.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
   "dependencies": {
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
+    "cross-env": "^5.0.5",
     "debug": "^3.0.1",
     "inquirer": "^3.3.0",
     "superagent": "^3.6.0"
