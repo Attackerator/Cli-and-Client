@@ -1,0 +1,37 @@
+{
+  "name": "frontAttackerator",
+  "version": "1.0.0",
+  "description": "CLI and Client to interact with backAttackerator",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env DEBUG=app:* mocha",
+    "test:watch": "cross-env DEBUG=app:* mocha -w",
+    "start": "cross-env DEBUG=app:* nodemon command.js",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Attackerator/frontAttackerator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Attackerator/frontAttackerator/issues"
+  },
+  "homepage": "https://github.com/Attackerator/frontAttackerator#readme",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "commander": "^2.11.0",
+    "cross-env": "^5.0.5",
+    "debug": "^3.0.1",
+    "inquirer": "^3.3.0",
+    "superagent": "^3.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.7.1",
+    "mocha": "^3.5.3",
+    "nodemon": "^1.12.1"
+  }
+}
