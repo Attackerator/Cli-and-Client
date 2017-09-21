@@ -27,6 +27,12 @@ exports.newCharacter = function(body, token){
     .send(body);
 };
 
+exports.findAllCharacters = function(token){
+  return request
+    .get(`https://backattackerator.herokuapp.com/api/characters`)
+    .set({'Authorization': `Bearer ${token}`});
+};
+
 exports.findCharacter = function(characterId, token){
   return request
     .get(`https://backattackerator.herokuapp.com/api/character/${characterId}`)
@@ -60,4 +66,26 @@ exports.updateStats = function(statsId, body, token){
     .put(`https://backattackerator.herokuapp.com/api/stats/${statsId}`)
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
+};
+
+//SKILLS INTERACTION
+
+exports.newSkill = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/skill/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.updateSkill = function(skillId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/skill/${skillId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.deleteSkill = function(skillId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/skill/${skillId}`)
+    .set({'Authorization': `Bearer ${token}`});
 };

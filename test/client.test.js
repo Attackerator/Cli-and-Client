@@ -34,12 +34,24 @@ const updatedStats = {
   strength: 17
 };
 
+const newSkill = {
+  name: 'underwater basket weaving'
+  ,bonus: 3
+  ,stat: 'dexterity'
+};
+
+const updateSkill = {
+  name: 'donkeylove'
+  ,stat: 'constitution'
+};
+
+
 const newCharacter = {
   name: 'newCharacterMajigger'
 };
 
 const updateCharacter = {
-  name: 'newCharacterMajigger'
+  name: 'differentCharacterMajigger'
 };
 
 describe('client-server interaction', function(){
@@ -76,6 +88,22 @@ describe('client-server interaction', function(){
             debug(res.body);
             newCharacter._id = res.body._id;
             expect(res.body.name).to.equal(newCharacter.name);
+          });
+      });
+    });
+    describe(':character retrieval',function(){
+      it('should return a specific character',function(){
+        return client.findCharacter(newCharacter._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(newCharacter.name);
+          });
+      });
+      it('should return all the characters for a user', function(){
+        return client.findAllCharacters(testToken)
+          .then(res => {
+            debug(res.body);
+            expect(res.status).to.equal(200);
           });
       });
     });
@@ -120,6 +148,39 @@ describe('client-server interaction', function(){
           .then(res => {
             expect(res.body.strength).to.equal(updatedStats.strength);
             expect(res.body.wisdom).to.equal(newStats.wisdom);
+          });
+      });
+    });
+  });
+
+  describe(':skill interaction', function(){
+    describe(':skill creation', function(){
+      it('should return a new skill with a characterId and userId', function(){
+        return client.newSkill(testCharacter._id, newSkill, testToken)
+          .then(res => {
+            newSkill._id = res.body._id;
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(newSkill.name);
+            expect(res.body.stat).to.equal(newSkill.stat);
+          });
+      });
+    });
+    describe(':skill update', function(){
+      it('should return an updated skill', function(){
+        return client.updateSkill(newSkill._id, updateSkill, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(updateSkill.name);
+            expect(res.body.stat).to.equal(updateSkill.stat);
+          });
+      });
+    });
+    describe(':skill deletion', function(){
+      it('should return 204 with no body', function(){
+        return client.deleteSkill(newSkill._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(204);
+            expect(res.body.name).to.be.undefined;
           });
       });
     });
