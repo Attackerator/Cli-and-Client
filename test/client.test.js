@@ -136,6 +136,7 @@ describe('client-server interaction', function(){
       });
     });
   });
+
   describe(':skill interaction', function(){
     describe(':skill creation', function(){
       it('should return a new skill with a characterId and userId', function(){
@@ -145,6 +146,25 @@ describe('client-server interaction', function(){
             expect(res.status).to.equal(200);
             expect(res.body.name).to.equal(newSkill.name);
             expect(res.body.stat).to.equal(newSkill.stat);
+          });
+      });
+    });
+    describe(':skill update', function(){
+      it('should return an updated skill', function(){
+        return client.updateSkill(newSkill._id, updateSkill, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(updateSkill.name);
+            expect(res.body.stat).to.equal(updateSkill.stat);
+          });
+      });
+    });
+    describe(':skill deletion', function(){
+      it('should return 204 with no body', function(){
+        return client.deleteSkill(newSkill._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(204);
+            expect(res.body.name).to.be.undefined;
           });
       });
     });
