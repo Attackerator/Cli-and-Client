@@ -19,6 +19,7 @@ exports.newUser = function(body){
 };
 
 //CHARACTER INTERACTION
+
 exports.newCharacter = function(body, token){
   return request
     .post(`https://backattackerator.herokuapp.com/api/character`)
