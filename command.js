@@ -7,6 +7,9 @@ const figlet = require('figlet');
 const client = require('./client.js');
 const chalk = require('chalk');
 const fs = require('fs');
+const os = require('os');
+
+var tempDir = os.tmpdir();
 
 
 clear();
@@ -27,11 +30,12 @@ program
 
 program
   .command('newUser <username> <email> <password>')
-  .alias('u')
+  .alias('nu')
   .description('creat a new user')
   .action((username, email, password) => {
-    client.newUser({username, email, password}).then(res => fs.writeFileSync('/home/jason/.attackeratorjwt.txt', res.text));
+    client.newUser({username, email, password}).then(res => fs.writeFileSync(`${tempDir}/.attackeratorjwt.txt`, res.text));
   });
+
 
 program.parse(process.argv);
 
