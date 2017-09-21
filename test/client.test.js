@@ -57,6 +57,14 @@ describe('client-server interaction', function(){
           });
       });
     });
-    
+    describe('character retrieval', function(){
+      it('should return a the character we just created', function(){
+        return client.findCharacter(newCharacter._id, testToken)
+          .then(res => {
+            debug(res.body);
+            expect(res.body.name).to.equal(newCharacter.name);
+          });
+      });
+    });
   });
 });
