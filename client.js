@@ -4,6 +4,12 @@
 //const debug = require('debug')('app:client');
 const request = require('superagent');
 
+exports.signIn = function(username, password){
+  return request
+    .get(`https://backattackerator.herokuapp.com/api/signin`)
+    .auth(username, password);
+};
+
 exports.newUser = function(body){
   return request
     .post(`https://backattackerator.herokuapp.com/api/user`)
