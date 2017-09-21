@@ -100,4 +100,16 @@ program
     client.newStats(char.characterId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(res.text));
   });
 
+program
+  .command('updateStat <statsId> <strength> <wisdom> <dexterity> <charisma> <intelligence> <constitution>')
+  .alias('us')
+  .description('create stats for character')
+
+  .action(( statsId, strength, wisdom, dexterity, charisma, intelligence, constitution) => {
+    let stat = { statsId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(stat);
+    client.updateStats(stat.statsId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(res.text));
+  });
+
 program.parse(process.argv);
