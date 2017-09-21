@@ -4,6 +4,7 @@
 //const debug = require('debug')('app:client');
 const request = require('superagent');
 
+//USER INTERACTION
 exports.signIn = function(username, password){
   return request
     .get(`https://backattackerator.herokuapp.com/api/signin`)
@@ -17,6 +18,7 @@ exports.newUser = function(body){
 
 };
 
+//CHARACTER INTERACTION
 exports.newCharacter = function(body, token){
   return request
     .post(`https://backattackerator.herokuapp.com/api/character`)
@@ -28,4 +30,11 @@ exports.findCharacter = function(characterId, token){
   return request
     .get(`https://backattackerator.herokuapp.com/api/character/${characterId}`)
     .set({'Authorization': `Bearer ${token}`});
+};
+
+exports.updateCharacter = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/character`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
 };
