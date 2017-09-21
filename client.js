@@ -61,3 +61,12 @@ exports.updateStats = function(statsId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+//SKILLS INTERACTION
+
+exports.newSkill = function(skillId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/skills/${skillId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
