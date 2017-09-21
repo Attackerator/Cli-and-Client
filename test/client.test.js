@@ -34,12 +34,24 @@ const updatedStats = {
   strength: 17
 };
 
+const newSkill = {
+  name: 'underwater basket weaving'
+  ,bonus: 3
+  ,stat: 'dexterity'
+};
+
+const updateSkill = {
+  name: 'donkeylove'
+  ,stat: 'constitution'
+};
+
+
 const newCharacter = {
   name: 'newCharacterMajigger'
 };
 
 const updateCharacter = {
-  name: 'newCharacterMajigger'
+  name: 'differentCharacterMajigger'
 };
 
 describe('client-server interaction', function(){
@@ -120,6 +132,19 @@ describe('client-server interaction', function(){
           .then(res => {
             expect(res.body.strength).to.equal(updatedStats.strength);
             expect(res.body.wisdom).to.equal(newStats.wisdom);
+          });
+      });
+    });
+  });
+  describe(':skill interaction', function(){
+    describe(':skill creation', function(){
+      it('should return a new skill with a characterId and userId', function(){
+        return client.newSkill(testCharacter._id, newSkill, testToken)
+          .then(res => {
+            newSkill._id = res.body._id;
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(newSkill.name);
+            expect(res.body.stat).to.equal(newSkill.stat);
           });
       });
     });

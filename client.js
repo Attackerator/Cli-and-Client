@@ -64,9 +64,9 @@ exports.updateStats = function(statsId, body, token){
 
 //SKILLS INTERACTION
 
-exports.newSkill = function(skillId, body, token){
+exports.newSkill = function(characterId, body, token){
   return request
-    .put(`https://backattackerator.herokuapp.com/api/skills/${skillId}`)
+    .post(`https://backattackerator.herokuapp.com/api/skill/${characterId}`)
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
@@ -78,7 +78,7 @@ exports.updateSkill = function(skillId, body, token){
     .send(body);
 };
 
-exports.deleteCharacter = function(skillId, token){
+exports.deleteSkill = function(skillId, token){
   return request
     .delete(`https://backattackerator.herokuapp.com/api/skill/${skillId}`)
     .set({'Authorization': `Bearer ${token}`});
