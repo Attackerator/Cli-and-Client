@@ -14,9 +14,22 @@ console.log(
     figlet.textSync('Attackerator', { horizontalLayout: 'full' })
   )
 );
-function checkUserExists(){
-  
+function checkUserExists(cb){
+  var questions = [{
+    name: 'login',
+    type: 'checkbox',
+    message: 'Log in'
+  },
+  {
+    name: 'createuser',
+    type: 'checkbox',
+    message: 'Create a new account'
+  }];
+  inquirer.prompt(questions)
+    .then(console.log(cb));
 }
+
+
 function getSignIn(callback) {
   var questions = [
     {
