@@ -70,3 +70,10 @@ exports.newSkill = function(skillId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+exports.updateSkill = function(skillId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/skill/${skillId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
