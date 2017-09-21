@@ -91,6 +91,22 @@ describe('client-server interaction', function(){
           });
       });
     });
+    describe(':character retrieval',function(){
+      it('should return a specific character',function(){
+        return client.findCharacter(newCharacter._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(newCharacter.name);
+          });
+      });
+      it('should return all the characters for a user', function(){
+        return client.findAllCharacters(testToken)
+          .then(res => {
+            debug(res.body);
+            expect(res.status).to.equal(200);
+          });
+      });
+    });
     describe(':character update', function(){
       it('should return a the character with updated name', function(){
         return client.updateCharacter(newCharacter._id, updateCharacter, testToken)
