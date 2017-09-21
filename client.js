@@ -54,3 +54,10 @@ exports.newStats = function(characterId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+exports.updateStats = function(characterId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/stats/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
