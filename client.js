@@ -34,7 +34,13 @@ exports.findCharacter = function(characterId, token){
 
 exports.updateCharacter = function(characterId, body, token){
   return request
-    .post(`https://backattackerator.herokuapp.com/api/character`)
+    .put(`https://backattackerator.herokuapp.com/api/character/${characterId}`)
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
+};
+
+exports.deleteCharacter = function(characterId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/character/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`});
 };
