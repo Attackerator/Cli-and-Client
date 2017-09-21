@@ -46,52 +46,20 @@ program
     client.signIn(user.username, user.password).then(res => fs.writeFileSync(`${homeDir}/.attackeratorjwt.txt`, res.text));
   });
 
-program.parse(process.argv);
+program
+  .command('createCharacter <name>')
 
 /*
-function checkUserExists(){
-  var questions = [{
-    name: 'login',
-    type: 'checkbox',
-    message: 'Log in or Create new Account',
-    choices: ['Log in', 'Create new Account']
-  }];
-  inquirer.prompt(questions);
-}
-
-checkUserExists(function(){
-  console.log(arguments);
-});
-
-function getSignIn(answer) {
-  var questions = [
-    {
-      name: 'username',
-      type: 'input',
-      message: 'Enter your Attackerator username:',
-      validate: function( value ) {
-        if (value.length) {
-          return true;
-        } else {
-          return 'Please enter your username';
-        }
-      }
-    },
-    {
-      name: 'password',
-      type: 'password',
-      message: 'Enter your password:',
-      validate: function(value) {
-        if (value.length) {
-          return true;
-        } else {
-          return 'Please enter your password';
-        }
-      }
-    }
-  ];
-  if ( answer === 'Log in' ){
-    inquirer.prompt(questions);
-  }
-}
+program
+  .command('createStat <strength> <wisdom> <dexterity> <charisma> <intelligence> <constitution>')
+  .alias('cs')
+  .description('create stats for character')
+  .action(( strength, wisdom, dexterity, charisma, intelligence, constitution) => {
+    console.log(strength, wisdom, dexterity, charisma, intelligence, constitution);
+    client.createStats({strength, wisdom, dexterity, charisma, intelligence, constitution})
+      .then( token => fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`))
+      .then();
+  });
 */
+
+program.parse(process.argv);
