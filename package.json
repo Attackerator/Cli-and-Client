@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env DEBUG=app:* mocha",
     "test:watch": "cross-env DEBUG=app:* mocha -w",
-    "start": "cross-env DEBUG=app:* nodemon command.js",
+    "start": "cross-env DEBUG=app:* node command.js",
     "lint": "eslint ."
   },
   "repository": {

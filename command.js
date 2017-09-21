@@ -4,33 +4,53 @@ const inquirer = require('inquirer');
 const program = require('commander');
 const clear = require('clear');
 const figlet = require('figlet');
-const client = require('./client.js')
+const client = require('./client.js');
 const chalk = require('chalk');
 const fs = require('fs');
 
+
 clear();
 console.log(
-  chalk.yellow(
-    figlet.textSync('Attackerator', { horizontalLayout: 'full' })
+  chalk.bold.yellow(
+    figlet.textSync('Attack', { horizontalLayout: 'full' })
   )
 );
-function checkUserExists(cb){
+console.log(
+  chalk.bold.blue(
+    figlet.textSync('erator', { horizontalLayout: 'full' })
+  )
+);
+
+program
+  .version('0.0.1')
+  .description('Character management for D20 RPG systems');
+
+program
+  .command('newUser <username> <email> <password>')
+  .alias('u')
+  .description('creat a new user')
+  .action((username, email, password) => {
+    client.newUser({username, email, password}).then(res => fs.writeFileSync('/home/jason/.attackeratorjwt.txt', res.text));
+  });
+
+program.parse(process.argv);
+
+/*
+function checkUserExists(){
   var questions = [{
     name: 'login',
     type: 'checkbox',
-    message: 'Log in'
-  },
-  {
-    name: 'createuser',
-    type: 'checkbox',
-    message: 'Create a new account'
+    message: 'Log in or Create new Account',
+    choices: ['Log in', 'Create new Account']
   }];
-  inquirer.prompt(questions)
-    .then(console.log(cb));
+  inquirer.prompt(questions);
 }
 
+checkUserExists(function(){
+  console.log(arguments);
+});
 
-function getSignIn(callback) {
+function getSignIn(answer) {
   var questions = [
     {
       name: 'username',
@@ -57,6 +77,8 @@ function getSignIn(callback) {
       }
     }
   ];
-
-  inquirer.prompt(questions).then(callback);
+  if ( answer === 'Log in' ){
+    inquirer.prompt(questions);
+  }
 }
+*/
