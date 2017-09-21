@@ -74,7 +74,7 @@ program
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
     console.log(char.characterId, name, token);
-    client.updateCharacter(char.characterId, name, token).then(res => console.log(res.text));
+    client.updateCharacter(char.characterId, { name }, token).then(res => console.log(res.text));
   });
 
 program
@@ -89,17 +89,15 @@ program
   });
 
 
-/*
 program
-  .command('createStat <strength> <wisdom> <dexterity> <charisma> <intelligence> <constitution>')
+  .command('createStat <characterId> <strength> <wisdom> <dexterity> <charisma> <intelligence> <constitution>')
   .alias('cs')
   .description('create stats for character')
-  .action(( strength, wisdom, dexterity, charisma, intelligence, constitution) => {
-    console.log(strength, wisdom, dexterity, charisma, intelligence, constitution);
-    client.createStats({strength, wisdom, dexterity, charisma, intelligence, constitution})
-      .then( token => fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`))
-      .then();
+  .action(( characterId, strength, wisdom, dexterity, charisma, intelligence, constitution) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(char);
+    client.newStats(char.characterId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(res.text));
   });
-*/
 
 program.parse(process.argv);
