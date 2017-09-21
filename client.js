@@ -16,3 +16,16 @@ exports.newUser = function(body){
     .send(body);
 
 };
+
+exports.newCharacter = function(body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/character`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.findCharacter = function(characterId, token){
+  return request
+    .get(`https://backattackerator.herokuapp.com/api/character/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`});
+};
