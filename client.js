@@ -45,3 +45,19 @@ exports.deleteCharacter = function(characterId, token){
     .delete(`https://backattackerator.herokuapp.com/api/character/${characterId}`)
     .set({'Authorization': `Bearer ${token}`});
 };
+
+//STATS INTERACTION
+
+exports.newStats = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/stats/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.updateStats = function(statsId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/stats/${statsId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
