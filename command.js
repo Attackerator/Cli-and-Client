@@ -66,6 +66,29 @@ program
     client.findCharacter(char.characterId, token).then(res => console.log(res.text));
   });
 
+program
+  .command('updateCharacter <characterId> <name>')
+  .alias('uc')
+  .description('update an existing Character')
+  .action((characterId, name) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(char.characterId, name, token);
+    client.updateCharacter(char.characterId, name, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('deleteCharacter <characterId>')
+  .alias('dc')
+  .description('delete an existing character')
+  .action((characterId) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(char.characterId, token);
+    client.deleteCharacter(char.characterId, token).then(res => console.log(res.text));
+  });
+
+
 /*
 program
   .command('createStat <strength> <wisdom> <dexterity> <charisma> <intelligence> <constitution>')
