@@ -10,7 +10,6 @@ const fs = require('fs');
 const os = require('os');
 
 var homeDir = os.homedir();
-var token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`);
 
 clear();
 console.log(
@@ -48,6 +47,24 @@ program
 
 program
   .command('createCharacter <name>')
+  .alias('nc')
+  .description('create a new character')
+  .action((name) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log({name}, token);
+    client.newCharacter({name}, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('findCharacter <characterId>')
+  .alias('fc')
+  .description('find an existing character')
+  .action((characterId) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(char.characterId, token);
+    client.findCharacter(char.characterId, token).then(res => console.log(res.text));
+  });
 
 /*
 program
