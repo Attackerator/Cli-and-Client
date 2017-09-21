@@ -27,6 +27,12 @@ exports.newCharacter = function(body, token){
     .send(body);
 };
 
+exports.findAllCharacters = function(token){
+  return request
+    .get(`https://backattackerator.herokuapp.com/api/character`)
+    .set({'Authorization': `Bearer ${token}`});
+};
+
 exports.findCharacter = function(characterId, token){
   return request
     .get(`https://backattackerator.herokuapp.com/api/character/${characterId}`)
