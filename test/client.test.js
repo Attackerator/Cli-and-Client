@@ -14,9 +14,9 @@ describe('clienty thing', function(){
   xit('should have a response not an error?', function(){
     return client.newUser(testBody)
       .then(res => {
-        console.log(res.text);
+        debug(res.text);
         expect(res.text.substring(0, 36)).to.equal('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
       })
-      .catch(err => console.log(err));
+      .catch(err => debug(err));
   });
 });
