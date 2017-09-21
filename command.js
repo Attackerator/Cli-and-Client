@@ -9,8 +9,8 @@ const chalk = require('chalk');
 const fs = require('fs');
 const os = require('os');
 
-var tempDir = os.tmpdir();
-
+var homeDir = os.homedir();
+var token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`);
 
 clear();
 console.log(
@@ -31,11 +31,20 @@ program
 program
   .command('newUser <username> <email> <password>')
   .alias('nu')
-  .description('creat a new user')
+  .description('create a new user')
   .action((username, email, password) => {
-    client.newUser({username, email, password}).then(res => fs.writeFileSync(`${tempDir}/.attackeratorjwt.txt`, res.text));
+    client.newUser({username, email, password}).then(res => fs.writeFileSync(`${homeDir}/.attackeratorjwt.txt`, res.text));
   });
 
+program
+  .command('signIn <username> <password>')
+  .alias('s')
+  .description('sign in to existing account')
+  .action((username, password) => {
+    let user = {username, password};
+    console.log(user.username, user.password);
+    client.signIn(user.username, user.password).then(res => fs.writeFileSync(`${homeDir}/.attackeratorjwt.txt`, res.text));
+  });
 
 program.parse(process.argv);
 
