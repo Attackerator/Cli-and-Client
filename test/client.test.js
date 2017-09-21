@@ -20,10 +20,14 @@ const newCharacter = {
   name: 'newCharacterMajigger'
 };
 
+const updateCharacter = {
+  name: 'newCharacterMajigger'
+};
+
 describe('client-server interaction', function(){
   let testToken;
-  describe('user interaction', function(){
-    describe('user creation', function(){
+  describe(':user interaction', function(){
+    describe(':user creation', function(){
       xit('should have return a token in the response', function(){
         return client.newUser(newBody)
           .then(res => {
@@ -33,7 +37,7 @@ describe('client-server interaction', function(){
           .catch(err => debug(err));
       });
     });
-    describe('users signin', function(){
+    describe(':users signin', function(){
       it('should return a token', function(){
         return client.signIn(testBody.username, testBody.password)
           .then(res => {
@@ -46,8 +50,8 @@ describe('client-server interaction', function(){
     });
   });
 
-  describe('character interaction', function(){
-    describe('character creation', function(){
+  describe(':character interaction', function(){
+    describe(':character creation', function(){
       it('should return a created character', function(){
         return client.newCharacter(newCharacter, testToken)
           .then(res => {
@@ -57,12 +61,12 @@ describe('client-server interaction', function(){
           });
       });
     });
-    describe('character retrieval', function(){
-      it('should return a the character we just created', function(){
-        return client.findCharacter(newCharacter._id, testToken)
+    describe(':character update', function(){
+      it('should return a the character with updated name', function(){
+        return client.updateCharacter(newCharacter._id, updateCharacter, testToken)
           .then(res => {
             debug(res.body);
-            expect(res.body.name).to.equal(newCharacter.name);
+            expect(res.body.name).to.equal(updateCharacter.name);
           });
       });
     });
