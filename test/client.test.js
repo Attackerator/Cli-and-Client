@@ -30,6 +30,10 @@ const newStats = {
   ,wisdom: 8
 };
 
+const updatedStats = {
+  strength: 17
+};
+
 const newCharacter = {
   name: 'newCharacterMajigger'
 };
@@ -100,9 +104,21 @@ describe('client-server interaction', function(){
       it('should return new stats, with a characterId and userId', function(){
         return client.newStats(testCharacter._id, newStats, testToken)
           .then(res => {
+            newStats._id = res.body._id;
             expect(res.status).to.equal(200);
             expect(res.body.strength).to.equal(newStats.strength);
             expect(res.body.constitution).to.equal(newStats.constitution);
+            expect(res.body.wisdom).to.equal(newStats.wisdom);
+            expect(res.body.characterId).to.not.be.undefined;
+            expect(res.body.userId).to.not.be.undefined;
+          });
+      });
+    });
+    describe(':stats update', function(){
+      it('should return updated stats',function(){
+        return client.updateStats(newStats._id, updatedStats, testToken)
+          .then(res => {
+            expect(res.body.strength).to.equal(updatedStats.strength);
             expect(res.body.wisdom).to.equal(newStats.wisdom);
           });
       });
