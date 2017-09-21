@@ -72,9 +72,9 @@ describe('client-server interaction', function(){
     });
     describe(':character deletion', function(){
       it('should return 204 with no body', function(){
-        return client.deleteCharacter(newCharacter._id, updateCharacter, testToken)
+        return client.deleteCharacter(newCharacter._id, testToken)
           .then(res => {
-            expect(res.status).to.be(204);
+            expect(res.status).to.equal(204);
             expect(res.body.name).to.be.undefined;
           });
       });
