@@ -144,4 +144,22 @@ program
     client.deleteSkill(skillId, token).then(res => console.log(res.text));
   });
 
+program
+  .command('createAttack <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .alias('ca')
+  .description('create a new attack to kill things!')
+  .action((characterId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.newAttack(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+  });
+
+  name: { type: String, required: true },
+  stat: { type: String, required: true },
+  damageType: { type: String, required: true},
+  diceType: { type: Number, required: true },
+  diceCount: { type: Number, required: true },
+  description: { type: String, required: false },
+  toHitBonus: { type: Number, required: false },
+  damageBonus: { type: Number, required: false },
 program.parse(process.argv);
