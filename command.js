@@ -36,7 +36,6 @@ program
   .description('sign in to existing account')
   .action((username, password) => {
     let user = {username, password};
-    console.log(user.username, user.password);
     client.signIn(user.username, user.password).then(res => fs.writeFileSync(`${homeDir}/.attackeratorjwt.txt`, res.text));
   });
 
@@ -46,8 +45,7 @@ program
   .description('create a new character')
   .action((name) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log({name}, token);
-    client.newCharacter({name}, token).then(res => console.log(res.text));
+    client.newCharacter({name}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -57,7 +55,6 @@ program
   .action((characterId) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(char.characterId, token);
     client.findCharacter(char.characterId, token).then(res => console.log(beautify(res.text)));
   });
 
@@ -68,8 +65,7 @@ program
   .action((characterId, name) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(char.characterId, name, token);
-    client.updateCharacter(char.characterId, { name }, token).then(res => console.log(res.text));
+    client.updateCharacter(char.characterId, { name }, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -79,8 +75,7 @@ program
   .action((characterId) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(char.characterId, token);
-    client.deleteCharacter(char.characterId, token).then(res => console.log(res.text));
+    client.deleteCharacter(char.characterId, token).then(() => console.log('character removed'));
   });
 
 program
@@ -89,8 +84,7 @@ program
   .description('find all character')
   .action(() => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(token);
-    client.findAllCharacters(token).then(res => console.log(chalk.bold.green(res.text)));
+    client.findAllCharacters(token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -100,8 +94,7 @@ program
   .action(( characterId, strength, wisdom, dexterity, charisma, intelligence, constitution) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(char);
-    client.newStats(char.characterId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(res.text));
+    client.newStats(char.characterId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -112,8 +105,7 @@ program
   .action(( statsId, strength, wisdom, dexterity, charisma, intelligence, constitution) => {
     let stat = { statsId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(stat);
-    client.updateStats(stat.statsId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(res.text));
+    client.updateStats(stat.statsId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -123,7 +115,7 @@ program
   .action((characterId, name, bonus, stat) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.newSkill(char.characterId, {name, bonus, stat}, token).then(res => console.log(res.text));
+    client.newSkill(char.characterId, {name, bonus, stat}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -132,7 +124,7 @@ program
   .description('edit a skill')
   .action((skillId, name, bonus, stat) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.updateSkill(skillId, {name, bonus, stat}, token).then(res => console.log(res.text));
+    client.updateSkill(skillId, {name, bonus, stat}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -141,7 +133,7 @@ program
   .description('delete a skill')
   .action((skillId) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.deleteSkill(skillId, token).then(res => console.log(res.text));
+    client.deleteSkill(skillId, token).then(() => console.log('skill removed'));
   });
 
 program
@@ -151,8 +143,7 @@ program
   .action((characterId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(char);
-    client.newAttack(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+    client.newAttack(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -161,7 +152,7 @@ program
   .description('update existing attack to kill things!')
   .action((attackId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.updateAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+    client.updateAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -170,7 +161,7 @@ program
   .description('delete existing attack')
   .action((attackId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.deleteAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+    client.deleteAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(() => console.log('attack deleted'));
   });
 
 program
@@ -180,8 +171,7 @@ program
   .action((characterId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    console.log(char);
-    client.newSpell(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+    client.newSpell(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -190,7 +180,7 @@ program
   .description('update existing spell to kill things!')
   .action((spellId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.updateSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+    client.updateSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -199,7 +189,7 @@ program
   .description('delete an existing spell')
   .action((spellId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.deleteSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+    client.deleteSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(() => console.log('deleted spell'));
   });
 
 program
@@ -209,7 +199,7 @@ program
   .action((characterId, type, bonus, stat) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.newSave(char.characterId, {type, bonus, stat}, token).then(res => console.log(res.text));
+    client.newSave(char.characterId, {type, bonus, stat}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -218,7 +208,7 @@ program
   .description('edit a save')
   .action((skillId, type, bonus, stat) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.updateSave(skillId, {type, bonus, stat}, token).then(res => console.log(res.text));
+    client.updateSave(skillId, {type, bonus, stat}, token).then(res => console.log(beautify(res.text)));
   });
 
 program
@@ -227,7 +217,7 @@ program
   .description('delete a save')
   .action((skillId) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.deleteSave(skillId, token).then(res => console.log(res.text));
+    client.deleteSave(skillId, token).then(() => console.log('save deleted'));
   });
 
 program.parse(process.argv);
