@@ -89,3 +89,25 @@ exports.deleteSkill = function(skillId, token){
     .delete(`https://backattackerator.herokuapp.com/api/skill/${skillId}`)
     .set({'Authorization': `Bearer ${token}`});
 };
+
+//ATTACK INTERACTION
+
+exports.newAttack = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/attack/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.updateAttack = function(attackId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/attack/${attackId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.deleteAttack = function(attackId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/attack/${attackId}`)
+    .set({'Authorization': `Bearer ${token}`});
+};

@@ -34,6 +34,22 @@ const updatedStats = {
   strength: 17
 };
 
+const newAttack = {
+  name: 'Donkey Kick'
+  ,stat: 'strength'
+  ,toHitBonus: 5
+  ,damageBonus: 3
+  ,damageType: 'bludgeoning'
+  ,diceType: '12'
+  ,diceCount: '2'
+  ,description: 'Achh, right in the fruit and veg'
+};
+
+const updateAttack = {
+  name: 'Tail whip'
+  ,stat: 'dexterity'
+};
+
 const newSkill = {
   name: 'underwater basket weaving'
   ,bonus: 3
@@ -178,6 +194,39 @@ describe('client-server interaction', function(){
     describe(':skill deletion', function(){
       it('should return 204 with no body', function(){
         return client.deleteSkill(newSkill._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(204);
+            expect(res.body.name).to.be.undefined;
+          });
+      });
+    });
+  });
+
+  describe(':attack interaction', function(){
+    describe(':attack creation', function(){
+      it('should return a new attack with a characterId and userId', function(){
+        return client.newAttack(testCharacter._id, newAttack, testToken)
+          .then(res => {
+            newAttack._id = res.body._id;
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(newAttack.name);
+            expect(res.body.stat).to.equal(newAttack.stat);
+          });
+      });
+    });
+    describe(':attack update', function(){
+      it('should return an updated attack', function(){
+        return client.updateAttack(newAttack._id, updateAttack, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(updateAttack.name);
+            expect(res.body.stat).to.equal(updateAttack.stat);
+          });
+      });
+    });
+    describe(':attack deletion', function(){
+      it('should return 204 with no body', function(){
+        return client.deleteAttack(newAttack._id, testToken)
           .then(res => {
             expect(res.status).to.equal(204);
             expect(res.body.name).to.be.undefined;
