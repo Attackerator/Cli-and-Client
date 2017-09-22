@@ -50,6 +50,22 @@ const updateAttack = {
   ,stat: 'dexterity'
 };
 
+const newSpell = {
+  name: 'Donkey breath'
+  ,stat: 'wisdom'
+  ,toHitBonus: 4
+  ,damageBonus: 7
+  ,damageType: 'necrotic'
+  ,diceType: '8'
+  ,diceCount: '5'
+  ,description: 'Fills a sixty foot area of effect centered on caster. Everything in effected area rolls fortitude check. Half damage on miss.'
+};
+
+const updateSpell = {
+  name: 'Flies, all the flies'
+  ,stat: 'constitutiond'
+};
+
 const newSkill = {
   name: 'underwater basket weaving'
   ,bonus: 3
@@ -227,6 +243,39 @@ describe('client-server interaction', function(){
     describe(':attack deletion', function(){
       it('should return 204 with no body', function(){
         return client.deleteAttack(newAttack._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(204);
+            expect(res.body.name).to.be.undefined;
+          });
+      });
+    });
+  });
+
+  describe(':spell interaction', function(){
+    describe(':spell creation', function(){
+      it('should return a new spell with a characterId and userId', function(){
+        return client.newSpell(testCharacter._id, newSpell, testToken)
+          .then(res => {
+            newSpell._id = res.body._id;
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(newSpell.name);
+            expect(res.body.stat).to.equal(newSpell.stat);
+          });
+      });
+    });
+    describe(':spell update', function(){
+      it('should return an updated attack', function(){
+        return client.updateSpell(newSpell._id, updateSpell, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(updateSpell.name);
+            expect(res.body.stat).to.equal(updateSpell.stat);
+          });
+      });
+    });
+    describe(':spell deletion', function(){
+      it('should return 204 with no body', function(){
+        return client.deleteSpell(newSpell._id, testToken)
           .then(res => {
             expect(res.status).to.equal(204);
             expect(res.body.name).to.be.undefined;

@@ -111,3 +111,25 @@ exports.deleteAttack = function(attackId, token){
     .delete(`https://backattackerator.herokuapp.com/api/attack/${attackId}`)
     .set({'Authorization': `Bearer ${token}`});
 };
+
+//SPELL INTERACTION
+
+exports.newSpell = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/spell/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.updateSpell = function(spellId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/spell/${spellId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.deleteSpell = function(spellId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/spell/${spellId}`)
+    .set({'Authorization': `Bearer ${token}`});
+};
