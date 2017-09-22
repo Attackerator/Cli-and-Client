@@ -111,3 +111,12 @@ exports.deleteAttack = function(attackId, token){
     .delete(`https://backattackerator.herokuapp.com/api/attack/${attackId}`)
     .set({'Authorization': `Bearer ${token}`});
 };
+
+//SPELL INTERACTION
+
+exports.newSpell = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/spell/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
