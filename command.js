@@ -119,10 +119,29 @@ program
 program
   .command('createSkill <characterId> <name> <bonus> <stat>')
   .alias('csk')
-  .description('delete an existing character')
+  .description('create a new skill')
   .action((characterId, name, bonus, stat) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
     client.newSkill(char.characterId, {name, bonus, stat}, token).then(res => console.log(res.text));
   });
+
+program
+  .command('updateSkill <skillId> <name> <bonus> <stat>')
+  .alias('usk')
+  .description('edit a skill')
+  .action((skillId, name, bonus, stat) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.updateSkill(skillId, {name, bonus, stat}, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('deleteSkill <skillId>')
+  .alias('dsk')
+  .description('delete a skill')
+  .action((skillId) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.deleteSkill(skillId, token).then(res => console.log(res.text));
+  });
+
 program.parse(process.argv);
