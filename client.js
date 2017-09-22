@@ -120,3 +120,16 @@ exports.newSpell = function(characterId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+exports.updateSpell = function(spellId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/spell/${spellId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.deleteSpell = function(spellId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/spell/${spellId}`)
+    .set({'Authorization': `Bearer ${token}`});
+};
