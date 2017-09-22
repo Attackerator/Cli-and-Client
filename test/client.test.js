@@ -317,5 +317,14 @@ describe('client-server interaction', function(){
           });
       });
     });
+    describe(':save deletion', function(){
+      it('should return 204 with no body', function(){
+        return client.deleteSave(newSave._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(204);
+            expect(res.body.name).to.be.undefined;
+          });
+      });
+    });
   });
 });
