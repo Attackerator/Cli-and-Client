@@ -149,3 +149,9 @@ exports.updateSave = function(saveId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+exports.deleteSave = function(saveId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/save/${saveId}`)
+    .set({'Authorization': `Bearer ${token}`});
+};
