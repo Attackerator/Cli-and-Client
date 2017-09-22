@@ -156,12 +156,12 @@ program
   });
 
 program
-  .command('deleteAttack <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .command('deleteAttack <attackId>')
   .alias('da')
   .description('delete existing attack')
-  .action((attackId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+  .action((attackId) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.deleteAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(() => console.log('attack deleted'));
+    client.deleteAttack(attackId, token).then(() => console.log('attack deleted'));
   });
 
 program
@@ -184,12 +184,12 @@ program
   });
 
 program
-  .command('deleteSpell <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .command('deleteSpell <spellId>')
   .alias('dsp')
   .description('delete an existing spell')
-  .action((spellId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+  .action((spellId) => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
-    client.deleteSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(() => console.log('deleted spell'));
+    client.deleteSpell(spellId, token).then(() => console.log('deleted spell'));
   });
 
 program
