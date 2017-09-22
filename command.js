@@ -151,6 +151,7 @@ program
   .action((characterId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(char);
     client.newAttack(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
   });
 
@@ -171,3 +172,34 @@ program
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
     client.deleteAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
   });
+
+program
+  .command('createSpell <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .alias('csp')
+  .description('create a new spell to kill things!')
+  .action((characterId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(char);
+    client.newSpell(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('updateSpell <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .alias('usp')
+  .description('update existing spell to kill things!')
+  .action((spellId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.updateSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('deleteSpell <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .alias('dsp')
+  .description('delete an existing spell')
+  .action((spellId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.deleteSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+  });
+
+program.parse(process.argv);
