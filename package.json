@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env DEBUG=app:* mocha",
     "test:watch": "cross-env DEBUG=app:* mocha -w",
-    "start": "cross-env DEBUG=app:* nodemon command.js",
+    "start": "cross-env DEBUG=app:* node command.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -22,10 +22,12 @@
   "homepage": "https://github.com/Attackerator/frontAttackerator#readme",
   "dependencies": {
     "chalk": "^2.1.0",
+    "clear": "0.0.1",
     "commander": "^2.11.0",
     "cross-env": "^5.0.5",
     "debug": "^3.0.1",
-    "inquirer": "^3.3.0",
+    "figlet": "^1.2.0",
+    "js-beautify": "^1.7.3",
     "superagent": "^3.6.0"
   },
   "devDependencies": {

@@ -1,11 +1,12 @@
 'use strict';
 
 //deployment URL https://backattackerator.herokuapp.com/
-//const debug = require('debug')('app:client');
+const debug = require('debug')('app:client');
 const request = require('superagent');
 
 //USER INTERACTION
 exports.signIn = function(username, password){
+  debug('Sign in request with Username and Password');
   return request
     .get(`https://backattackerator.herokuapp.com/api/signin`)
     .auth(username, password);
