@@ -77,6 +77,17 @@ const updateSkill = {
   ,stat: 'constitution'
 };
 
+const newSave = {
+  type: 'fortitude'
+  ,stat: 'constitution'
+  ,bonus: 5
+};
+
+const updateSave = {
+  type: 'poison'
+  ,bonus: 42
+};
+
 
 const newCharacter = {
   name: 'newCharacterMajigger'
@@ -279,6 +290,20 @@ describe('client-server interaction', function(){
           .then(res => {
             expect(res.status).to.equal(204);
             expect(res.body.name).to.be.undefined;
+          });
+      });
+    });
+  });
+
+  describe(':save interaction', function(){
+    describe(':save creation', function(){
+      it('should return a new save with a characterId and userId', function(){
+        return client.newSave(testCharacter._id, newSave, testToken)
+          .then(res => {
+            newSave._id = res.body._id;
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(newSave.name);
+            expect(res.body.stat).to.equal(newSave.stat);
           });
       });
     });
