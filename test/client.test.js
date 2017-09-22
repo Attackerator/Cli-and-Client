@@ -224,5 +224,14 @@ describe('client-server interaction', function(){
           });
       });
     });
+    describe(':attack deletion', function(){
+      it('should return 204 with no body', function(){
+        return client.deleteAttack(newAttack._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(204);
+            expect(res.body.name).to.be.undefined;
+          });
+      });
+    });
   });
 });
