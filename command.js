@@ -14,12 +14,7 @@ var homeDir = os.homedir();
 clear();
 console.log(
   chalk.bold.yellow(
-    figlet.textSync('Attack', { horizontalLayout: 'full' })
-  )
-);
-console.log(
-  chalk.bold.blue(
-    figlet.textSync('erator', { horizontalLayout: 'full' })
+    figlet.textSync('Attackerator', { horizontalLayout: 'full' })
   )
 );
 
@@ -88,6 +83,15 @@ program
     client.deleteCharacter(char.characterId, token).then(res => console.log(res.text));
   });
 
+program
+  .command('findAllCharacters')
+  .alias('fa')
+  .description('find all character')
+  .action(() => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    console.log(token);
+    client.findAllCharacters(token).then(res => console.log(res.text));
+  });
 
 program
   .command('createStat <characterId> <strength> <wisdom> <dexterity> <charisma> <intelligence> <constitution>')
@@ -112,4 +116,13 @@ program
     client.updateStats(stat.statsId, { strength, wisdom, dexterity, charisma, intelligence, constitution }, token).then(res => console.log(res.text));
   });
 
+program
+  .command('createSkill <characterId> <name> <bonus> <stat>')
+  .alias('csk')
+  .description('delete an existing character')
+  .action((characterId, name, bonus, stat) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.newSkill(char.characterId, {name, bonus, stat}, token).then(res => console.log(res.text));
+  });
 program.parse(process.argv);
