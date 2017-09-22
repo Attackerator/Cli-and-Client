@@ -90,7 +90,7 @@ program
   .action(() => {
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
     console.log(token);
-    client.findAllCharacters(token).then(res => console.log(res.text));
+    client.findAllCharacters(token).then(res => console.log(chalk.bold.green(res.text)));
   });
 
 program
