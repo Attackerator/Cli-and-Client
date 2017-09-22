@@ -89,3 +89,12 @@ exports.deleteSkill = function(skillId, token){
     .delete(`https://backattackerator.herokuapp.com/api/skill/${skillId}`)
     .set({'Authorization': `Bearer ${token}`});
 };
+
+//ATTACK INTERACTION
+
+exports.newAttack = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/attack/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
