@@ -98,3 +98,10 @@ exports.newAttack = function(characterId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+exports.updateAttack = function(attackId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/attack/${attackId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
