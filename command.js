@@ -1,6 +1,5 @@
 'use strict';
 
-const inquirer = require('inquirer');
 const program = require('commander');
 const clear = require('clear');
 const figlet = require('figlet');
@@ -8,6 +7,7 @@ const client = require('./client.js');
 const chalk = require('chalk');
 const fs = require('fs');
 const os = require('os');
+const beautify = require('js-beautify').js_beautify;
 
 var homeDir = os.homedir();
 
@@ -58,7 +58,7 @@ program
     let char = { characterId };
     let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
     console.log(char.characterId, token);
-    client.findCharacter(char.characterId, token).then(res => console.log(res.text));
+    client.findCharacter(char.characterId, token).then(res => console.log(beautify(res.text)));
   });
 
 program

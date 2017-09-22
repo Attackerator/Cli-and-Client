@@ -27,7 +27,7 @@
     "cross-env": "^5.0.5",
     "debug": "^3.0.1",
     "figlet": "^1.2.0",
-    "inquirer": "^3.3.0",
+    "js-beautify": "^1.7.3",
     "superagent": "^3.6.0"
   },
   "devDependencies": {
