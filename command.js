@@ -202,4 +202,32 @@ program
     client.deleteSpell(spellId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
   });
 
+program
+  .command('createSave <characterId> <type> <bonus> <stat>')
+  .alias('csv')
+  .description('create a new save')
+  .action((characterId, type, bonus, stat) => {
+    let char = { characterId };
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.newSave(char.characterId, {type, bonus, stat}, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('updateSave <saveId> <type> <bonus> <stat>')
+  .alias('usv')
+  .description('edit a save')
+  .action((skillId, type, bonus, stat) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.updateSave(skillId, {type, bonus, stat}, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('deleteSave <saveId>')
+  .alias('dsv')
+  .description('delete a save')
+  .action((skillId) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.deleteSave(skillId, token).then(res => console.log(res.text));
+  });
+
 program.parse(process.argv);
