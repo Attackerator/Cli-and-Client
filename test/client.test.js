@@ -77,6 +77,17 @@ const updateSkill = {
   ,stat: 'constitution'
 };
 
+const newSave = {
+  type: 'fortitude'
+  ,stat: 'constitution'
+  ,bonus: 5
+};
+
+const updateSave = {
+  type: 'poison'
+  ,bonus: 42
+};
+
 
 const newCharacter = {
   name: 'newCharacterMajigger'
@@ -264,7 +275,7 @@ describe('client-server interaction', function(){
       });
     });
     describe(':spell update', function(){
-      it('should return an updated attack', function(){
+      it('should return an updated spell', function(){
         return client.updateSpell(newSpell._id, updateSpell, testToken)
           .then(res => {
             expect(res.status).to.equal(200);
@@ -276,6 +287,39 @@ describe('client-server interaction', function(){
     describe(':spell deletion', function(){
       it('should return 204 with no body', function(){
         return client.deleteSpell(newSpell._id, testToken)
+          .then(res => {
+            expect(res.status).to.equal(204);
+            expect(res.body.name).to.be.undefined;
+          });
+      });
+    });
+  });
+
+  describe(':save interaction', function(){
+    describe(':save creation', function(){
+      it('should return a new save with a characterId and userId', function(){
+        return client.newSave(testCharacter._id, newSave, testToken)
+          .then(res => {
+            newSave._id = res.body._id;
+            expect(res.status).to.equal(200);
+            expect(res.body.type).to.equal(newSave.type);
+            expect(res.body.bonus).to.equal(newSave.bonus);
+          });
+      });
+    });
+    describe(':save update', function(){
+      it('should return an updated save', function(){
+        return client.updateSave(newSave._id, updateSave, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.type).to.equal(updateSave.type);
+            expect(res.body.bonus).to.equal(updateSave.bonus);
+          });
+      });
+    });
+    describe(':save deletion', function(){
+      it('should return 204 with no body', function(){
+        return client.deleteSave(newSave._id, testToken)
           .then(res => {
             expect(res.status).to.equal(204);
             expect(res.body.name).to.be.undefined;

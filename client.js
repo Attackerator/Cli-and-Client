@@ -133,3 +133,25 @@ exports.deleteSpell = function(spellId, token){
     .delete(`https://backattackerator.herokuapp.com/api/spell/${spellId}`)
     .set({'Authorization': `Bearer ${token}`});
 };
+
+//SAVE INTERACTION
+
+exports.newSave = function(characterId, body, token){
+  return request
+    .post(`https://backattackerator.herokuapp.com/api/save/${characterId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.updateSave = function(saveId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/save/${saveId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
+
+exports.deleteSave = function(saveId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/save/${saveId}`)
+    .set({'Authorization': `Bearer ${token}`});
+};
