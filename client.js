@@ -105,3 +105,9 @@ exports.updateAttack = function(attackId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+exports.deleteAttack = function(attackId, token){
+  return request
+    .delete(`https://backattackerator.herokuapp.com/api/attack/${attackId}`)
+    .set({'Authorization': `Bearer ${token}`});
+};
