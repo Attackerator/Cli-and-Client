@@ -154,12 +154,20 @@ program
     client.newAttack(char.characterId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
   });
 
-  name: { type: String, required: true },
-  stat: { type: String, required: true },
-  damageType: { type: String, required: true},
-  diceType: { type: Number, required: true },
-  diceCount: { type: Number, required: true },
-  description: { type: String, required: false },
-  toHitBonus: { type: Number, required: false },
-  damageBonus: { type: Number, required: false },
-program.parse(process.argv);
+program
+  .command('updateAttack <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .alias('ua')
+  .description('update existing attack to kill things!')
+  .action((attackId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.updateAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+  });
+
+program
+  .command('deleteAttack <characterId> <name> <stat> <damageType> <diceType> <diceCount> <description> <toHitBonus> <damageBonus>')
+  .alias('da')
+  .description('delete existing attack')
+  .action((attackId, name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus) => {
+    let token = fs.readFileSync(`${homeDir}/.attackeratorjwt.txt`, 'utf8');
+    client.deleteAttack(attackId, {name, stat, damageType, diceType, diceCount, description, toHitBonus, damageBonus}, token).then(res => console.log(res.text));
+  });
