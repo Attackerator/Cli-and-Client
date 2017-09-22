@@ -207,10 +207,20 @@ describe('client-server interaction', function(){
       it('should return a new attack with a characterId and userId', function(){
         return client.newAttack(testCharacter._id, newAttack, testToken)
           .then(res => {
-            newSkill._id = res.body._id;
+            newAttack._id = res.body._id;
             expect(res.status).to.equal(200);
             expect(res.body.name).to.equal(newAttack.name);
             expect(res.body.stat).to.equal(newAttack.stat);
+          });
+      });
+    });
+    describe(':attack update', function(){
+      it('should return an updated attack', function(){
+        return client.updateAttack(newAttack._id, updateAttack, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(updateAttack.name);
+            expect(res.body.stat).to.equal(updateAttack.stat);
           });
       });
     });
