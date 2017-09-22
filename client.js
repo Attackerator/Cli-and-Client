@@ -142,3 +142,10 @@ exports.newSave = function(characterId, body, token){
     .set({'Authorization': `Bearer ${token}`})
     .send(body);
 };
+
+exports.updateSave = function(saveId, body, token){
+  return request
+    .put(`https://backattackerator.herokuapp.com/api/save/${saveId}`)
+    .set({'Authorization': `Bearer ${token}`})
+    .send(body);
+};
