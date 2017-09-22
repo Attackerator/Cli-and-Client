@@ -263,5 +263,15 @@ describe('client-server interaction', function(){
           });
       });
     });
+    describe(':spell update', function(){
+      it('should return an updated attack', function(){
+        return client.updateSpell(newSpell._id, updateSpell, testToken)
+          .then(res => {
+            expect(res.status).to.equal(200);
+            expect(res.body.name).to.equal(updateSpell.name);
+            expect(res.body.stat).to.equal(updateSpell.stat);
+          });
+      });
+    });
   });
 });
